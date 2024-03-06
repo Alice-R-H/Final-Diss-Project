@@ -1,0 +1,811 @@
+﻿<Window x:Class="TestMove.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        xmlns:gauge ="clr-namespace:Syncfusion.UI.Xaml.Gauges;assembly=Syncfusion.SfGauge.Wpf"
+        xmlns:local="clr-namespace:TestMove"
+        mc:Ignorable="d"
+        Title="V A L Y S I S" Height="800" Width="1502" WindowStartupLocation="CenterScreen" Foreground="#FF131313" Background="#FF272727" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" Padding="0,0,80,0">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="107,11,27,9" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual1">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background1" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border1" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground1" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="0,0,10,0" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="70,9,50,9" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border1}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border1}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background1}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border1}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground1}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background2" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border2" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background2" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border2" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background2" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border2" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background2" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border2" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground2" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle3" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background2}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border2}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="0,0,45,0" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="88,9,43,11" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border2}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background2}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground2}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBlockStyle1" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Margin" Value="60,0,0,0"/>
+        </Style>
+        <Style x:Key="FocusVisual3">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background3" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border3" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background3" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border3" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background3" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border3" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background3" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border3" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground3" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle4" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual3}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background3}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border3}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="-1,-1,2,2" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <Image Source="/image-source/settings-icon.png"/>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background3}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border3}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background3}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border3}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background3}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border3}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground3}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual4">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background4" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border4" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background4" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border4" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background4" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border4" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background4" Color="#15141E"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border4" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground4" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle5" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual4}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background4}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border4}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid Height="20" Width="20">
+                                    <Image Margin="0,0,78,78" Source="/settings-icon.png"/>
+                                </Grid>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background4}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border4}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background4}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border4}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background4}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border4}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground4}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBlockStyle2" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="MainGrid" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="121*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF15141F"/>
+                <GradientStop Color="#FF0B0B12" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle x:Name="NagivationRect" HorizontalAlignment="Left" Height="736" Margin="10,10,0,0" VerticalAlignment="Top" Width="290" RadiusX="14" RadiusY="14" Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
+                    <GradientStop Color="#FF28273F" Offset="0.163"/>
+                    <GradientStop Color="#FF7E334C" Offset="1"/>
+                    <GradientStop Color="#FF412A42" Offset="0.54"/>
+                    <GradientStop Color="#FF0A0911" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle x:Name="TrendsRect" HorizontalAlignment="Left" Height="641" Margin="315,105,0,0" VerticalAlignment="Top" Width="868" RadiusX="16" RadiusY="16" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF28273F"/>
+                    <GradientStop Color="#FF80334C" Offset="1"/>
+                    <GradientStop Color="#FF3C2844" Offset="0.406"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle x:Name="SummaryRect" Grid.Column="1" HorizontalAlignment="Left" Height="641" Margin="848,105,0,0" VerticalAlignment="Top" Width="277" RadiusX="16" RadiusY="16" Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF28273F"/>
+                    <GradientStop Color="#FF7F334C" Offset="1"/>
+                    <GradientStop Color="#FF4B2B44" Offset="0.544"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <StackPanel x:Name="NavigationStack" HorizontalAlignment="Left" Height="766" VerticalAlignment="Top" Width="290" Margin="10,10,0,0" Grid.RowSpan="2">
+
+            <Grid x:Name="AppNameGrid" Height="45" Width="256">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="57*"/>
+                    <ColumnDefinition Width="71*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="AppName" Style="{DynamicResource TextBlockStyle1}" Height="40" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI" FontSize="30" Foreground="White" FontWeight="Bold" Margin="38,5,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left"><Run Language="en-gb" Text="V A L Y S I S"/></TextBlock>
+            </Grid>
+            <Grid x:Name="NavigationGrid" Height="58" Width="244">
+                <Rectangle x:Name="NavigationGridRect" Fill="#FF13131D" Margin="-23,8,-23,0"/>
+                <TextBlock x:Name="NavigationGridText" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="140" Margin="58,17,0,0" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="20"><Run Language="en-gb" Text="N A V I G A T E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+            </Grid>
+            <Grid x:Name="TimeNavGrid" Height="50" Width="291">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12*"/>
+                    <RowDefinition Height="13*"/>
+                </Grid.RowDefinitions>
+                <Rectangle x:Name="TimeAnalysisHighlight" HorizontalAlignment="Center" Height="39" Grid.RowSpan="2" VerticalAlignment="Top" Width="271" Margin="0,8,0,0" Fill="#FF151420" RadiusX="13" RadiusY="13"/>
+                <Button x:Name="TimeAnalysis" Style="{DynamicResource ButtonStyle1}" Content="T I M E" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" RenderTransformOrigin="1,0" Click="Button_TimeAnalysis" Grid.RowSpan="2"/>
+            </Grid>
+            <Grid x:Name="PressureNavGrid" Height="51" Width="290">
+                <Rectangle x:Name="PressureAnalysisHighlight" HorizontalAlignment="Center" Height="43" VerticalAlignment="Center" Width="271" Fill="#FF151420" RadiusX="13" RadiusY="13"/>
+                <Button x:Name="PressureAnalysis" Style="{DynamicResource ButtonStyle2}" Content="P R E S S U R E" Height="51" Width="290" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" Click="Button_PressureAnalysis"/>
+            </Grid>
+            <Grid x:Name="EventsNavGrid" Height="51" Width="290">
+                <Rectangle x:Name="EventsAnalysisHighlight" HorizontalAlignment="Center" Height="43" VerticalAlignment="Center" Width="271" Fill="#FF151420" RadiusX="13" RadiusY="13"/>
+                <Button x:Name="EventsAnalysis" Style="{DynamicResource ButtonStyle3}" Content="E V E N T S" Height="51" Width="290" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" Click="Button_EventsAnalysis"/>
+            </Grid>
+            <Rectangle x:Name="NavFillerRect" Height="426" Width="246"/>
+            <Grid x:Name="MiscBar" Height="56" Width="282">
+                <Rectangle x:Name="MiscBarRect" HorizontalAlignment="Center" Height="36" VerticalAlignment="Center" Width="282" Fill="#FF15141F" RadiusX="10.5" RadiusY="10.5"/>
+                <Button x:Name="SignOut" Content="S I G N  O U T" HorizontalAlignment="Stretch" Margin="160,0,40,0" Height="24" Background="#FF7D324C" BorderBrush="{x:Null}" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="8"/>
+                <TextBlock x:Name="UsernameText" TextWrapping="Wrap" Text="U S E R N A M E" Foreground="White" Margin="28,0,162,0" VerticalAlignment="Center" RenderTransformOrigin="0.645,1.068"/>
+                <Button x:Name="Settings" Content="" HorizontalAlignment="Left" Height="20" Margin="252,0,0,0" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" RenderTransformOrigin="0.15,0.377">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/settings-icon.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </StackPanel>
+        <Grid x:Name="TitleGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="53" Margin="315,10,0,0" VerticalAlignment="Top" Width="1162">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1C1B2C" Offset="1"/>
+                    <GradientStop Color="#FF0A0910" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBlock x:Name="TitleLabel" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="40" Foreground="White" Width="1142" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Language="en-gb" Text="I M P A C T  O F  T I M E"/></TextBlock>
+        </Grid>
+        <Grid x:Name="TrendsLabelGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="37" Margin="315,68,0,0" VerticalAlignment="Top" Width="868">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="132*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="TrendsLabelRect" Grid.ColumnSpan="3" Fill="#FF13121C"/>
+            <TextBlock x:Name="TrendsLabel" TextWrapping="Wrap" FontSize="26" FontFamily="Segoe UI Semibold" Foreground="White" Margin="26,0,0,0" Grid.Column="2"><Run Language="en-gb" Text="T R E N D S"/></TextBlock>
+        </Grid>
+        <Grid x:Name="SummaryLabelGrid" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="848,68,0,0" VerticalAlignment="Top" Width="277">
+            <Rectangle x:Name="SummaryLabelRect" Height="37" RadiusX="0" RadiusY="0" Fill="#FF15141F"/>
+            <TextBlock x:Name="SummaryLabel" TextWrapping="Wrap" FontSize="26" FontFamily="Segoe UI Semibold" Foreground="White" Margin="52,0,0,0"><Run Language="en-gb" Text="S U M M A R Y"/></TextBlock>
+        </Grid>
+        <Grid x:Name="PressureGrid" HorizontalAlignment="Left" Height="636" VerticalAlignment="Top" Width="1162" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="315,110,0,0">
+            <Rectangle x:Name="HPRoundWinRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="30,17,0,0"/>
+            <Rectangle x:Name="HPDeathsRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="448,332,0,0"/>
+            <Rectangle x:Name="HPHeadshotRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="30,332,0,0"/>
+            <Rectangle x:Name="HPKASTRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="448,17,0,0"/>
+            <Ellipse x:Name="GaugeGraphic4" HorizontalAlignment="Left" Height="70" Margin="605,135,0,0" VerticalAlignment="Top" Width="70">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF7D334C" Offset="0"/>
+                        <GradientStop Color="#FF29273F" Offset="1"/>
+                        <GradientStop Color="#FF522C45" Offset="0.485"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="GaugeGraphic3" HorizontalAlignment="Left" Height="70" Margin="187,135,0,0" VerticalAlignment="Top" Width="70">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF7D334C" Offset="0"/>
+                        <GradientStop Color="#FF29273F" Offset="1"/>
+                        <GradientStop Color="#FF522C45" Offset="0.485"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="GaugeGraphic2" HorizontalAlignment="Left" Height="70" Margin="605,446,0,0" VerticalAlignment="Top" Width="70">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF7D334C" Offset="0"/>
+                        <GradientStop Color="#FF29273F" Offset="1"/>
+                        <GradientStop Color="#FF522C45" Offset="0.485"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Ellipse x:Name="GaugeGraphic1" HorizontalAlignment="Left" Height="70" Margin="187,446,0,0" VerticalAlignment="Top" Width="70">
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF7D334C" Offset="0"/>
+                        <GradientStop Color="#FF29273F" Offset="1"/>
+                        <GradientStop Color="#FF522C45" Offset="0.485"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Grid x:Name="HPRoundWinGrid" HorizontalAlignment="Left" Height="236" Margin="43,34,0,0" VerticalAlignment="Top" Width="358">
+                <gauge:SfCircularGauge x:Name="WinrateGauge" d:IsHidden="True" />
+            </Grid>
+            <Grid x:Name="HPHeadshotGrid" HorizontalAlignment="Left" Height="230" Margin="43,348,0,0" VerticalAlignment="Top" Width="358">
+                <gauge:SfCircularGauge x:Name="HeadshotGauge" d:IsHidden="True" />
+            </Grid>
+            <Grid x:Name="HPKASTGrid" HorizontalAlignment="Left" Height="236" Margin="463,34,0,0" VerticalAlignment="Top" Width="356">
+                <gauge:SfCircularGauge x:Name="KASTGauge" d:IsHidden="True" />
+            </Grid>
+            <Grid x:Name="HPDeathsGrid" HorizontalAlignment="Left" Height="235" Margin="463,348,0,0" VerticalAlignment="Top" Width="356">
+                <gauge:SfCircularGauge x:Name="DeathsGauge" d:IsHidden="True" />
+            </Grid>
+            <Grid x:Name="HPSummaryGrid" HorizontalAlignment="Left" Height="636" Margin="885,0,0,0" VerticalAlignment="Center" Width="277">
+                <TextBlock x:Name="HPPerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <TextBlock x:Name="HPImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
+                <TextBlock x:Name="HPPMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
+                <TextBlock x:Name="HPIMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
+                <Button x:Name="HPIMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIMultiplierInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Border x:Name="HPPMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top">
+                    <Grid x:Name="HPPMultiGrid">
+                        <Ellipse x:Name="HPPMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Top" Width="170" Fill="#FF12131D"/>
+                        <Ellipse x:Name="HPPMultiInnerRect" HorizontalAlignment="Center" Height="150" Margin="0,10,0,0" VerticalAlignment="Top" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF2C2742"/>
+                                    <GradientStop Color="#FF3E2538" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="HPPMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
+                        <TextBlock x:Name="HPPerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Border x:Name="HPIMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170">
+                    <Grid x:Name="HPIMultiGrid">
+                        <Ellipse x:Name="HPIMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Center" Width="170" Fill="#FF16121C"/>
+                        <Ellipse x:Name="HPIMultiInnerRect" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF4E2B43" Offset="0"/>
+                                    <GradientStop Color="#FF773052" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="HPIMultiRect" HorizontalAlignment="Center" Height="130" VerticalAlignment="Center" Width="130" Fill="#FF16121C"/>
+                        <TextBlock x:Name="HPImpactMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Button x:Name="HPPMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,58,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPPMultiplierInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Grid x:Name="HPPMultiplierInfoGrid" HorizontalAlignment="Center" Height="278" Margin="0,24,0,0" VerticalAlignment="Top" Width="248">
+                    <Rectangle x:Name="HPPMultiplierInfoRect" HorizontalAlignment="Center" Height="278" VerticalAlignment="Center" Width="248" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="CloseHPPMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="156,239,0,0" VerticalAlignment="Top" Click="Button_CloseHPPMultiplierInfo"/>
+                    <TextBlock x:Name="HPPMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+                <Grid x:Name="HPIMultiplierInfoGrid" HorizontalAlignment="Center" Height="279" Margin="0,336,0,0" VerticalAlignment="Top" Width="246">
+                    <Rectangle x:Name="HPIMultiplierInfoRect" HorizontalAlignment="Center" Height="279" VerticalAlignment="Center" Width="244" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="CloseHPIMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="154,240,0,0" VerticalAlignment="Top" Click="Button_CloseHPIMultiplierInfo"/>
+                    <TextBlock x:Name="HPIMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+            </Grid>
+            <TextBlock x:Name="HPWinrateText" HorizontalAlignment="Left" Height="36" Margin="160,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"><Run Language="en-gb" Text="W I N R A T E"/></TextBlock>
+            <TextBlock x:Name="HPDeathsText" HorizontalAlignment="Left" Height="36" Margin="594,552,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"><Run Language="en-gb" Text="D E A T H S"/></TextBlock>
+            <TextBlock x:Name="HPKASTText" HorizontalAlignment="Left" Height="36" Margin="611,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"><Run Language="en-gb" Text="K A S T"/></TextBlock>
+            <TextBlock x:Name="HPHeadshotText" HorizontalAlignment="Left" Height="36" Margin="196,552,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"><Run Language="en-gb" Text="A I M"/></TextBlock>
+            <Button x:Name="HPIndexInfo1" Content="Button" HorizontalAlignment="Left" Height="20" Margin="799,342,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIndexInfo1">
+                <Button.Background>
+                    <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="HPIndexInfo2" Content="Button" HorizontalAlignment="Left" Height="20" Margin="799,25,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIndexInfo1" RenderTransformOrigin="0.55,0.102">
+                <Button.Background>
+                    <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="HPIndexInfo3" Content="Button" HorizontalAlignment="Left" Height="20" Margin="381,26,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIndexInfo1">
+                <Button.Background>
+                    <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="HPIndexInfo4" Content="Button" HorizontalAlignment="Left" Height="20" Margin="381,342,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIndexInfo1">
+                <Button.Background>
+                    <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                </Button.Background>
+            </Button>
+            <Grid x:Name="HPIndexInfoGrid" HorizontalAlignment="Left" Height="602" Margin="30,0,0,0" VerticalAlignment="Center" Width="802" d:IsHidden="True">
+                <Rectangle x:Name="HPIndexInfoRect" HorizontalAlignment="Center" Height="602" VerticalAlignment="Center" Width="802" Fill="#FF15141E" RadiusX="12.5" RadiusY="12.5"/>
+                <TextBlock x:Name="HPIndexInfoText" HorizontalAlignment="Left" Height="70" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="740" Foreground="White" FontSize="14"><Run Language="en-gb" Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/></TextBlock>
+                <Button x:Name="CloseHPIndexInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="710,563,0,0" VerticalAlignment="Top" Click="Button_CloseHPIndexInfo"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="OTGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162">
+            <Rectangle x:Name="KASTOTRect" HorizontalAlignment="Left" Height="278" Margin="446,336,0,0" VerticalAlignment="Top" Width="396" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
+            <Rectangle x:Name="AbilityUsageOTRect" HorizontalAlignment="Left" Height="277" Margin="23,336,0,0" VerticalAlignment="Top" Width="394" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
+            <Rectangle x:Name="WinrateOTRect" HorizontalAlignment="Left" Height="278" Margin="23,25,0,0" VerticalAlignment="Top" Width="394" RadiusX="10" RadiusY="10" Fill="#FF15141F"/>
+            <Rectangle x:Name="HeadshotOTRect" HorizontalAlignment="Left" Height="278" Margin="446,25,0,0" VerticalAlignment="Top" Width="396" Fill="#FF15141E" RadiusX="10" RadiusY="10"/>
+            <Grid
+                Width="405" VerticalAlignment="Top" x:Name="WinrateOTGrid" Margin="23,25,0,0" Height="264" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="WinrateOT" Margin="0,0,0,10" />
+                <TextBlock x:Name="WinrateTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="101,10,101,227"><Run Language="en-gb" Text="W I N R A T E  O V E R  T I M E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <Button x:Name="WinrateOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_WinrateInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <TextBlock x:Name="XAxis4" HorizontalAlignment="Center" Height="30" Margin="0,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Foreground="White" FontWeight="Bold" FontSize="11"><Run Language="en-gb" Text="C O N S E C U T I V E  G A M E S  P L A Y E D"/></TextBlock>
+                <Grid x:Name="WinrateInfoGrid" HorizontalAlignment="Left" Height="254" Margin="10,10,0,0" VerticalAlignment="Top" Width="371" Background="#FF15141E" d:IsHidden="True">
+                    <TextBlock x:Name="WinrateInfoText" HorizontalAlignment="Center" Height="221" Margin="0,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="331" Foreground="White" FontSize="14"><Run Language="en-gb" Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/></TextBlock>
+                    <Button x:Name="CloseWinrateInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="289,224,0,0" VerticalAlignment="Top" Click="Button_CloseWinrateInfo"/>
+                </Grid>
+            </Grid>
+            <Grid
+                Width="405" VerticalAlignment="Top" x:Name="HeadShotOTGrid" Margin="446,25,0,0" Height="264" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="HeadShotOT" Margin="0,0,0,10" />
+                <TextBlock x:Name="HeadshotTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="94,10,94,227" Text="A C C U R A C Y  O V E R  T I M E&#xA;"/>
+                <Button x:Name="HeadshotOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HeadshotInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <TextBlock x:Name="XAxis3" HorizontalAlignment="Center" Height="30" Margin="0,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" Foreground="White" FontWeight="Bold" FontSize="11"><Run Language="en-gb" Text="C O N S E C U T I V E  G A M E S  P L A Y E D"/></TextBlock>
+                <Grid x:Name="HeadshotInfoGrid" HorizontalAlignment="Left" Height="254" Margin="10,10,0,0" VerticalAlignment="Top" Width="371" Background="#FF15141E" d:IsHidden="True">
+                    <TextBlock x:Name="HeadshotInfoText" HorizontalAlignment="Center" Height="221" Margin="0,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="331" Foreground="White" FontSize="14"><Run Language="en-gb" Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/></TextBlock>
+                    <Button x:Name="CloseHeadshotInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="289,224,0,0" VerticalAlignment="Top" Click="Button_CloseHeadshotInfo"/>
+                </Grid>
+            </Grid>
+            <Grid
+                Width="405" VerticalAlignment="Top" x:Name="AbilityUsageOTGrid" Margin="23,336,0,0" Height="264" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="AbilityUsageOT" Margin="0,0,0,10" />
+                <TextBlock x:Name="AbilityUsageTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="72,10,72,227" Text="A B I L I T Y  U S A G E  O V E R  T I M E"/>
+                <Button x:Name="AbilityOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_AbilityInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <TextBlock x:Name="XAxis2" HorizontalAlignment="Center" Height="30" Margin="0,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" Foreground="White" FontWeight="Bold" FontSize="11"><Run Language="en-gb" Text="C O N S E C U T I V E  G A M E S  P L A Y E D"/></TextBlock>
+                <Grid x:Name="AbilityInfoGrid" HorizontalAlignment="Left" Height="254" Margin="10,10,0,0" VerticalAlignment="Top" Width="371" Background="#FF15141E" d:IsHidden="True">
+                    <TextBlock x:Name="AbilityInfoText" HorizontalAlignment="Center" Height="221" Margin="0,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="331" Foreground="White" FontSize="14"><Run Language="en-gb" Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/></TextBlock>
+                    <Button x:Name="CloseAbilityInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="289,224,0,0" VerticalAlignment="Top" Click="Button_CloseAbilityInfo"/>
+                </Grid>
+            </Grid>
+            <Grid
+                Width="405" VerticalAlignment="Top" x:Name="KASTOTGrid" Margin="446,336,0,0" Height="264" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="KASTOT" Margin="0,0,0,10" />
+                <TextBlock x:Name="KASTOTTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="126,10,126,227" Text="K A S T  O V E R  T I M E"/>
+                <Button x:Name="KASTOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_KASTInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <TextBlock x:Name="XAxis1" HorizontalAlignment="Center" Height="30" Margin="0,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" Foreground="White" FontWeight="Bold" FontSize="11"><Run Language="en-gb" Text="C O N S E C U T I V E  G A M E S  P L A Y E D"/></TextBlock>
+                <Grid x:Name="KASTInfoGrid" HorizontalAlignment="Left" Height="254" Margin="10,10,0,0" VerticalAlignment="Top" Width="371" Background="#FF15141E" d:IsHidden="True">
+                    <TextBlock x:Name="KASTInfoText" HorizontalAlignment="Center" Height="221" Margin="0,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="331" Foreground="White" FontSize="14"><Run Language="en-gb" Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/></TextBlock>
+                    <Button x:Name="CloseKASTInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="289,224,0,0" VerticalAlignment="Top" Click="Button_CloseKASTInfo"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="OTSummaryGrid" HorizontalAlignment="Left" Height="636" Margin="885,0,0,0" VerticalAlignment="Center" Width="277">
+                <TextBlock x:Name="PerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <TextBlock x:Name="ImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
+                <TextBlock x:Name="PMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
+                <TextBlock x:Name="IMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
+                <Button x:Name="IMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_IMultiplierInfo" d:IsHidden="True">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Border x:Name="PMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" d:IsHidden="True">
+                    <Grid x:Name="PMultiGrid">
+                        <Ellipse x:Name="PMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Top" Width="170" Fill="#FF12131D"/>
+                        <Ellipse x:Name="PMultiInnerRect" HorizontalAlignment="Center" Height="150" Margin="0,10,0,0" VerticalAlignment="Top" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF2C2742"/>
+                                    <GradientStop Color="#FF3E2538" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="PMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
+                        <TextBlock x:Name="PerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Border x:Name="IMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170" d:IsHidden="True">
+                    <Grid x:Name="IMultiGrid">
+                        <Ellipse x:Name="IMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Center" Width="170" Fill="#FF16121C"/>
+                        <Ellipse x:Name="IMultiInnerRect" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF4E2B43" Offset="0"/>
+                                    <GradientStop Color="#FF773052" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="IMultiRect" HorizontalAlignment="Center" Height="130" VerticalAlignment="Center" Width="130" Fill="#FF16121C"/>
+                        <TextBlock x:Name="ImpactMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Button x:Name="PMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,58,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_PMultiplierInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Grid x:Name="PMultiplierInfoGrid" HorizontalAlignment="Center" Height="278" Margin="0,24,0,0" VerticalAlignment="Top" Width="248" d:IsHidden="True">
+                    <Rectangle x:Name="PMultiplierInfoRect" HorizontalAlignment="Center" Height="278" VerticalAlignment="Center" Width="248" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="ClosePMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="156,239,0,0" VerticalAlignment="Top" Click="Button_ClosePMultiplierInfo"/>
+                    <TextBlock x:Name="PMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+                <Grid x:Name="IMultiplierInfoGrid" HorizontalAlignment="Center" Height="279" Margin="0,336,0,0" VerticalAlignment="Top" Width="246" d:IsHidden="True">
+                    <Rectangle x:Name="IMultiplierInfoRect" HorizontalAlignment="Center" Height="279" VerticalAlignment="Center" Width="244" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="CloseIMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="154,240,0,0" VerticalAlignment="Top" Click="Button_CloseIMultiplierInfo"/>
+                    <TextBlock x:Name="IMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="EventsGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162">
+            <Rectangle x:Name="PositiveEventsGrid" HorizontalAlignment="Left" Height="616" Margin="23,0,0,0" VerticalAlignment="Center" Width="394" RadiusX="10" RadiusY="10" Fill="#FF15141F"/>
+            <Rectangle x:Name="NegativeEventsGrid" HorizontalAlignment="Left" Height="616" Margin="446,0,0,0" VerticalAlignment="Center" Width="396" Fill="#FF15141E" RadiusX="10" RadiusY="10"/>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="WinratePosEventsGrid" Margin="44,48,0,0" Height="190" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="279*"/>
+                    <ColumnDefinition Width="74*"/>
+                </Grid.ColumnDefinitions>
+                <ScottPlot:WpfPlot x:Name="WinratePosEvent" Grid.ColumnSpan="2" />
+            </Grid>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="HeadshotPosEventsGrid" Margin="44,232,0,0" Height="190" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="HeadshotPosEvent" />
+            </Grid>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="KASTPosEventsGrid" Margin="44,413,0,0" Height="190" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="KASTPosEvent" />
+            </Grid>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="WinrateNegEventsGrid" Margin="468,48,0,0" Height="190" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="WinrateNegEvent" />
+            </Grid>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="HeadshotNegEventsGrid" Margin="468,232,0,0" Height="190" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="HeadshotNegEvent" />
+            </Grid>
+            <Grid
+                Width="352" VerticalAlignment="Top" x:Name="KASTNegEventsGrid" Margin="468,413,0,0" Height="190" HorizontalAlignment="Left">
+                <ScottPlot:WpfPlot x:Name="KASTNegEvent" />
+            </Grid>
+            <TextBlock x:Name="PositiveEventText" HorizontalAlignment="Left" Height="33" Margin="115,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="18" Text="P O S I T I V E  E V E N T S"/>
+            <TextBlock x:Name="NegativeEventText" HorizontalAlignment="Left" Height="33" Margin="536,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="18" Text="N E G A T I V E  E V E N T S"/>
+            <TextBlock x:Name="BAPositiveEventText" HorizontalAlignment="Left" Height="13" Margin="142,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Foreground="White" FontFamily="Segoe UI Semibold" Text="B E F O R E  A N D  A F T E R"/>
+            <TextBlock x:Name="BANegativeEventText" HorizontalAlignment="Left" Height="13" Margin="566,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Foreground="White" FontFamily="Segoe UI Semibold" Text="B E F O R E  A N D  A F T E R"/>
+            <Grid x:Name="EventsSummaryGrid" HorizontalAlignment="Left" Height="636" Margin="885,0,0,0" VerticalAlignment="Center" Width="277">
+                <TextBlock x:Name="EventsPerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="20"><Run Language="en-gb" Text="P O S I T I V E  E V E N T"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <TextBlock x:Name="EventsImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" FontSize="20" FontFamily="Segoe UI Semibold" Foreground="White" Text="N E G A T I V E  E V E N T&#xD;&#xA;"/>
+                <TextBlock x:Name="EPMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="P E R F O M A N C E  "/><Run Text="M U L T I P L I E R"/></TextBlock>
+                <TextBlock x:Name="EIMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,565,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" FontFamily="Segoe UI Semibold" Foreground="White"><Run Text="P E R F O M A N C E  "/><Run Text="M U L T I P L I E R"/></TextBlock>
+                <Button x:Name="EIMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_EIMultiplierInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Border x:Name="EPMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top">
+                    <Grid x:Name="EPMultiGrid">
+                        <Ellipse x:Name="EPMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Top" Width="170" Fill="#FF12131D"/>
+                        <Ellipse x:Name="EPMultiInnerRect" HorizontalAlignment="Center" Height="150" Margin="0,10,0,0" VerticalAlignment="Top" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF2C2742"/>
+                                    <GradientStop Color="#FF3E2538" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="EPMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
+                        <TextBlock x:Name="EPerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Border x:Name="EIMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170">
+                    <Grid x:Name="EIMultiGrid">
+                        <Ellipse x:Name="EIMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Center" Width="170" Fill="#FF16121C"/>
+                        <Ellipse x:Name="EIMultiInnerRect" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF4E2B43" Offset="0"/>
+                                    <GradientStop Color="#FF773052" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse x:Name="EIMultiRect" HorizontalAlignment="Center" Height="130" VerticalAlignment="Center" Width="130" Fill="#FF16121C"/>
+                        <TextBlock x:Name="EImpactMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                    </Grid>
+                </Border>
+                <Button x:Name="EPMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,58,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_EPMultiplierInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Grid x:Name="EPMultiplierInfoGrid" HorizontalAlignment="Center" Height="278" Margin="0,24,0,0" VerticalAlignment="Top" Width="248" d:IsHidden="True">
+                    <Rectangle x:Name="EPMultiplierInfoRect" HorizontalAlignment="Center" Height="278" VerticalAlignment="Center" Width="248" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="CloseEPMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="156,239,0,0" VerticalAlignment="Top" Click="Button_CloseEPMultiplierInfo"/>
+                    <TextBlock x:Name="EPMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+                <Grid x:Name="EIMultiplierInfoGrid" HorizontalAlignment="Center" Height="279" Margin="0,336,0,0" VerticalAlignment="Top" Width="246" d:IsHidden="True">
+                    <Rectangle x:Name="EIMultiplierInfoRect" HorizontalAlignment="Center" Height="279" VerticalAlignment="Center" Width="244" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
+                    <Button x:Name="CloseEIMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="154,240,0,0" VerticalAlignment="Top" Click="Button_CloseEIMultiplierInfo"/>
+                    <TextBlock x:Name="EIMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                </Grid>
+                <Button x:Name="NegativeEventInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="-81,24,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_NegativeEventInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="PositiveEventInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="-504,24,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_PositiveEventInfo">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+            <Grid x:Name="EventsTrendsInfoGrid" HorizontalAlignment="Left" Height="616" Margin="23,0,0,0" VerticalAlignment="Center" Width="819" d:IsHidden="True">
+                <Rectangle x:Name="EventsTrendsInfoRect" HorizontalAlignment="Center" Height="616" VerticalAlignment="Center" Width="819" RadiusX="7.5" RadiusY="7.5" Fill="#FF13121C"/>
+                <Button x:Name="CloseEventsTrendsInfoGrid" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="727,577,0,0" VerticalAlignment="Top" Click="Button_CloseEventsTrendsInfoGrid"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
