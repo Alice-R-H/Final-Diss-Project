@@ -579,7 +579,7 @@
                 <Button x:Name="CloseHPIndexInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="710,563,0,0" VerticalAlignment="Top" Click="Button_CloseHPIndexInfo"/>
             </Grid>
         </Grid>
-        <Grid x:Name="OTGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162">
+        <Grid x:Name="OTGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162" d:IsHidden="True">
             <Rectangle x:Name="KASTOTRect" HorizontalAlignment="Left" Height="278" Margin="446,336,0,0" VerticalAlignment="Top" Width="396" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
             <Rectangle x:Name="AbilityUsageOTRect" HorizontalAlignment="Left" Height="277" Margin="23,336,0,0" VerticalAlignment="Top" Width="394" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
             <Rectangle x:Name="WinrateOTRect" HorizontalAlignment="Left" Height="278" Margin="23,25,0,0" VerticalAlignment="Top" Width="394" RadiusX="10" RadiusY="10" Fill="#FF15141F"/>
@@ -649,12 +649,12 @@
                 <TextBlock x:Name="ImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
                 <TextBlock x:Name="PMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
                 <TextBlock x:Name="IMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
-                <Button x:Name="IMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_IMultiplierInfo" d:IsHidden="True">
+                <Button x:Name="IMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_IMultiplierInfo">
                     <Button.Background>
                         <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
                     </Button.Background>
                 </Button>
-                <Border x:Name="PMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" d:IsHidden="True">
+                <Border x:Name="PMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top">
                     <Grid x:Name="PMultiGrid">
                         <Ellipse x:Name="PMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Top" Width="170" Fill="#FF12131D"/>
                         <Ellipse x:Name="PMultiInnerRect" HorizontalAlignment="Center" Height="150" Margin="0,10,0,0" VerticalAlignment="Top" Width="150">
@@ -666,7 +666,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <Ellipse x:Name="PMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
-                        <TextBlock x:Name="PerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                        <TextBlock x:Name="PerformanceMultiplierTimeValue" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                     </Grid>
                 </Border>
                 <Border x:Name="IMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170" d:IsHidden="True">
@@ -681,7 +681,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <Ellipse x:Name="IMultiRect" HorizontalAlignment="Center" Height="130" VerticalAlignment="Center" Width="130" Fill="#FF16121C"/>
-                        <TextBlock x:Name="ImpactMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                        <TextBlock x:Name="ImpactMultiplierTimeValue" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                     </Grid>
                 </Border>
                 <Button x:Name="PMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,58,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_PMultiplierInfo">
@@ -701,7 +701,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid x:Name="EventsGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162">
+        <Grid x:Name="EventsGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162" d:IsHidden="True">
             <Rectangle x:Name="PositiveEventsGrid" HorizontalAlignment="Left" Height="616" Margin="23,0,0,0" VerticalAlignment="Center" Width="394" RadiusX="10" RadiusY="10" Fill="#FF15141F"/>
             <Rectangle x:Name="NegativeEventsGrid" HorizontalAlignment="Left" Height="616" Margin="446,0,0,0" VerticalAlignment="Center" Width="396" Fill="#FF15141E" RadiusX="10" RadiusY="10"/>
             <Grid

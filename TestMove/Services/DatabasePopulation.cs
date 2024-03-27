@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ScottPlot.Plottables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace TestMove.Services
 
         // all ranges are +1 to account for exclusion of upper bound
 
-        private ModelContext modelContext;
+        DatabaseTrendInjector _trendInjector = new DatabaseTrendInjector();
+
+        private ModelContext _modelContext;
 
         public DatabasePopulation()
         {
-            modelContext = new ModelContext();
+            _modelContext = new ModelContext();
         }
 
         public async Task SeedDatabaseAsync()
@@ -40,27 +43,28 @@ namespace TestMove.Services
         public async Task ClearDatabaseAsync()
         {
             // clear database on close.
-            var allEntriesRoundResults = modelContext.RoundResults.ToList();
-            var allEntriesHPRoundResults = modelContext.HPRoundResults.ToList();
-            var allEntriesPositiveEventsRoundResults = modelContext.PositiveEventsRoundResults.ToList();
-            var allEntriesNegativeEventsRoundResults = modelContext.NegativeEventsRoundResults.ToList();
+            var allEntriesRoundResults = _modelContext.RoundResults.ToList();
+            var allEntriesHPRoundResults = _modelContext.HPRoundResults.ToList();
+            var allEntriesPositiveEventsRoundResults = _modelContext.PositiveEventsRoundResults.ToList();
+            var allEntriesNegativeEventsRoundResults = _modelContext.NegativeEventsRoundResults.ToList();
 
-            modelContext.RoundResults.RemoveRange(allEntriesRoundResults);
-            modelContext.HPRoundResults.RemoveRange(allEntriesHPRoundResults);
-            modelContext.PositiveEventsRoundResults.RemoveRange(allEntriesPositiveEventsRoundResults);
-            modelContext.NegativeEventsRoundResults.RemoveRange(allEntriesNegativeEventsRoundResults);
+            _modelContext.RoundResults.RemoveRange(allEntriesRoundResults);
+            _modelContext.HPRoundResults.RemoveRange(allEntriesHPRoundResults);
+            _modelContext.PositiveEventsRoundResults.RemoveRange(allEntriesPositiveEventsRoundResults);
+            _modelContext.NegativeEventsRoundResults.RemoveRange(allEntriesNegativeEventsRoundResults);
 
-            await modelContext.SaveChangesAsync();
+            await _modelContext.SaveChangesAsync();
 
             // leaving the auto-increment ID as is, as is standard practice and does not impact performance at high values.
         }
 
         public async Task SeedRoundResultsAsync()
         {
-            if (!modelContext.RoundResults.Any())
+            if (!_modelContext.RoundResults.Any())
             {
                 var rnd = new Random();
                 int roundIdentifier = 1;
+                int gamesTotal = 1;
 
                 // we create 360 rounds, assuming 24 rounds a game, total of 20 games. 
                 for (int i = 0; i < 480; i++)
@@ -68,31 +72,32 @@ namespace TestMove.Services
                     var roundResult = new RoundResults
                     {
                         // the cell is populated randomly between the specified range                        
-                        kills = rnd.Next(0, 6),
-                        assists = rnd.Next(0, 6),
-                        deaths = GetDataBoolBiased(rnd, 0, 2, 0.8),
-                        trades = GetDataBoolBiased(rnd, 0, 2, 0.8),
-                        abilitiesUsed = rnd.Next(0, 4),
-                        HeadshotPercentage = rnd.Next(0, 101),
-                        RoundWin = rnd.Next(0, 2) > 0,
+                        kills = _trendInjector.GetBiasedValue(0, 5, gamesTotal, 3),
+                        assists = _trendInjector.GetBiasedValue(0, 5, gamesTotal, 3),
+                        deaths = _trendInjector.GenerateBiasedBool(true, gamesTotal, 4),
+                        trades = _trendInjector.GenerateBiasedBool(false, gamesTotal, 3),
+                        abilitiesUsed = _trendInjector.GetBiasedValue(0, 4, gamesTotal, 3),
+                        HeadshotPercentage = _trendInjector.GetBiasedValue(0, 100, gamesTotal, 3),
+                        RoundWin = _trendInjector.GenerateBiasedBool(false, gamesTotal, 3),
                         RoundIdentifier = roundIdentifier,
                     };
 
-                    modelContext.RoundResults.Add(roundResult);
+                    _modelContext.RoundResults.Add(roundResult);
 
                     roundIdentifier++;
                     if (roundIdentifier > 24)
                     {
                         roundIdentifier = 1;
+                        gamesTotal++;
                     }
                 }
-                await modelContext.SaveChangesAsync();
+                await _modelContext.SaveChangesAsync();
             }
         }
 
         public async Task SeedHPRoundResultsAsync()
         {
-            if (!modelContext.HPRoundResults.Any())
+            if (!_modelContext.HPRoundResults.Any())
             {
                 var rnd = new Random();
                 int roundIdentifier = 1;
@@ -112,7 +117,7 @@ namespace TestMove.Services
                         RoundIdentifierHP = roundIdentifier,
                     };
 
-                    modelContext.HPRoundResults.Add(roundResultHP);
+                    _modelContext.HPRoundResults.Add(roundResultHP);
 
                     roundIdentifier++;
                     if (roundIdentifier > 24)
@@ -120,13 +125,13 @@ namespace TestMove.Services
                         roundIdentifier = 1;
                     }
                 }
-                await modelContext.SaveChangesAsync();
+                await _modelContext.SaveChangesAsync();
             }
         }
 
         public async Task SeedPositiveEventsRoundResultsAsync()
         {
-            if (!modelContext.PositiveEventsRoundResults.Any())
+            if (!_modelContext.PositiveEventsRoundResults.Any())
             {
                 var rnd = new Random();
 
@@ -145,16 +150,16 @@ namespace TestMove.Services
                         roundWinratePostPE = rnd.Next(0, 101),
                     };
 
-                    modelContext.PositiveEventsRoundResults.Add(positiveEventsRoundResults);
+                    _modelContext.PositiveEventsRoundResults.Add(positiveEventsRoundResults);
 
                 }
-                await modelContext.SaveChangesAsync();
+                await _modelContext.SaveChangesAsync();
             }
         }
 
         public async Task SeedNegativeEventsRoundResultsAsync()
         {
-            if (!modelContext.NegativeEventsRoundResults.Any())
+            if (!_modelContext.NegativeEventsRoundResults.Any())
             {
                 var rnd = new Random();
 
@@ -173,31 +178,14 @@ namespace TestMove.Services
                         roundWinratePostNE = rnd.Next(0, 101),
                     };
 
-                    modelContext.NegativeEventsRoundResults.Add(negativeEventsRoundResults);
+                    _modelContext.NegativeEventsRoundResults.Add(negativeEventsRoundResults);
 
                 }
-                await modelContext.SaveChangesAsync();
+                await _modelContext.SaveChangesAsync();
             }
 
           
         }
-        public bool GetDataBoolBiased(Random rnd, int min, int max, double biasTowardsMin)
-        {
-            double rndDouble = rnd.NextDouble();
-
-            // Check if the generated number is less than the bias threshold
-            if (rndDouble < biasTowardsMin)
-            {
-                int minValue = min - 1;
-                bool result = minValue == 1;
-                return result; // Return the minimum value (more likely)
-            }
-            else
-            {
-                int maxValue = max - 1;
-                bool result = maxValue == 1;
-                return result; // Return the maximum value - 1 (less likely)
-            }
-        }
+        
     }
 }

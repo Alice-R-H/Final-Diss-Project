@@ -125,26 +125,27 @@ namespace TestMove
             double maxY = dataY.Max();
             double rangeY = maxY - minY;
 
-            //if (rangeY > 1)
-            //{ 
-                 interval = (int)Math.Ceiling(rangeY / 3);
+            if (rangeY > 1)
+            {
+                interval = (int)Math.Ceiling(rangeY / 3);
                 defaultPlot.Plot.Axes.Left.TickGenerator = new ScottPlot.TickGenerators.NumericFixedInterval(interval);
-            //}
-            //else
-            //{
-            //    // create a manual tick generator and add ticks
-            //    ScottPlot.TickGenerators.NumericManual ticks = new();
+            }
+            else
+            {
+                // create a manual tick generator and add ticks
+                ScottPlot.TickGenerators.NumericManual ticks = new();
 
-            //    // add major ticks with their labels
-            //    ticks.AddMajor(0, "0");
-            //    ticks.AddMajor(0.25, "0.25");
-            //    ticks.AddMajor(0.5, "0.5");
+                  // add major ticks with their labels
+                ticks.AddMajor(0, "0");
+                ticks.AddMajor(0.25, "0.25");
+                ticks.AddMajor(0.5, "0.5");
+                ticks.AddMajor(1, "1");
 
-            //    defaultPlot.Plot.Axes.Left.TickGenerator = ticks;
-            //}
-            
+                defaultPlot.Plot.Axes.Left.TickGenerator = ticks;
+            }
 
-            defaultPlot.Plot.Axes.Left.MajorTickStyle.Color = ScottPlot.Color.FromHex("#28273F");
+
+    defaultPlot.Plot.Axes.Left.MajorTickStyle.Color = ScottPlot.Color.FromHex("#28273F");
             defaultPlot.Plot.Axes.Left.MinorTickStyle.Color = ScottPlot.Colors.Transparent;
 
             defaultPlot.Plot.Axes.Left.FrameLineStyle.Color = ScottPlot.Color.FromHex("#28273F");

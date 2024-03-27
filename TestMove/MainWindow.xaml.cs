@@ -1,5 +1,4 @@
-﻿using TestMove;
-using ScottPlot.Panels;
+﻿using ScottPlot.Panels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,14 +10,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syncfusion.UI.Xaml.Gauges;
-using TestMove.Data;
+using TestMove;
+using TestMove.Services;
+
 
 
 
 namespace TestMove
 {
     public partial class MainWindow : Window
-    {        
+    {
         private ConfigureUIElements uiConfigurer;
         private InitialiseVisualisations initialiseVisualisations;
         private RoundResultsRepo roundResultsRepo;
@@ -31,19 +32,20 @@ namespace TestMove
             uiConfigurer = new ConfigureUIElements(this);
             uiConfigurer.ConfigureUIOnClick(OTGrid, TimeAnalysisHighlight);
 
+            initialiseVisualisations = new InitialiseVisualisations();
             // Create RoundResultsRepo instance (assuming ModelContext is available for its initialization)
             roundResultsRepo = new RoundResultsRepo(new ModelContext());
 
             // create InitialiseVisualisations instance
-            initialiseVisualisations = new InitialiseVisualisations();
+           
 
             // set dependencies
-            initialiseVisualisations.SetMainWindow(this);
+
             initialiseVisualisations.SetRoundResultsRepo(roundResultsRepo);
 
             // now that all dependencies are set, initialize visualisations
+            initialiseVisualisations.SetMainWindow(this);
             initialiseVisualisations.InitialiseAllVisualisations();
-
         }
 
         // NAVIGATION BUTTONS

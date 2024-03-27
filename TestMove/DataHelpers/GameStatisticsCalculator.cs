@@ -75,7 +75,6 @@ namespace TestMove
             return percentageXPerGameRounded;
         }
 
-
         public List<int> CalculateAverageXPerGame(List<int> X)
         {
             // this method is called for any non-boolean list
@@ -87,6 +86,22 @@ namespace TestMove
                 .Select((value, index) => new { Index = index, Value = value })
                 .GroupBy(x => x.Index / roundsInAGame)
                 .Select(group => (int)Math.Round(group.Average(item => item.Value)))
+                .ToList();
+
+            return averages;
+        }
+
+        public List<double> CalculateAverageAbilitiesPerGame(List<int> AbilitiesList)
+        {
+            // this method is called for any non-boolean list
+            // using LINQ to split the data into "games", then find the average value per game
+
+            int roundsInAGame = 24;
+
+            var averages = AbilitiesList
+                .Select((value, index) => new { Index = index, Value = value })
+                .GroupBy(x => x.Index / roundsInAGame)
+                .Select(group => Math.Round(group.Average(item => item.Value), 1))
                 .ToList();
 
             return averages;
@@ -105,7 +120,7 @@ namespace TestMove
             }
 
             multiplier = totalSumOfMultipliers / (XArray.Length - 1);
-            multiplier = Math.Round(multiplier, 1);
+            multiplier = Math.Round(multiplier, 2);
 
             return multiplier;
         }
@@ -122,9 +137,11 @@ namespace TestMove
             }
 
             averageMultiplier = totalSumOfMultipliers / multipliers.Length;
-            averageMultiplier = Math.Round(averageMultiplier, 1);
+            averageMultiplier = Math.Round(averageMultiplier, 2);
 
             return averageMultiplier;
         }
+
+
     }
 }

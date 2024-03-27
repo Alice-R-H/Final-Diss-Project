@@ -24,6 +24,7 @@ namespace TestMove
 
             // seed the database asynchronously on opening
             Task.Run(() => databasePopulation.SeedDatabaseAsync()).Wait();
+
         }
 
         protected override void OnExit(ExitEventArgs e)
