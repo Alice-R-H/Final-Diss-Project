@@ -21,10 +21,11 @@ namespace TestMove
             _mainWindow = mainWindow;
         }
 
-        public void ConfigureUIOnClick(UIElement activeGrid, Shape activeRectangle)
+        public void ConfigureUIOnClick(UIElement activeGrid, Shape activeRectangle, string dashboardName)
         {
             UpdateGridVisibility(activeGrid);
             UpdateButtonHighlight(activeRectangle);
+            UpdateTitleOnClick(_mainWindow.TitleLabel, dashboardName);
         }
 
         public void UpdateTitleOnClick(TextBlock textBlock, string panelVisible)
@@ -89,7 +90,7 @@ namespace TestMove
             activeRectangle.Fill = highlightButtonBackground;
         }
  
-        public void OTInfoOnClick(UIElement activeGrid, bool makeVisible)
+        public void ShowInfoOnClick(UIElement activeGrid, bool makeVisible)
         {
             // if makeVisible is true, we want to make activeGrid grid visible, otherwise, hide activeGrid grid.
 

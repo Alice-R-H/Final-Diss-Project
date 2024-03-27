@@ -13,188 +13,193 @@ using Syncfusion.UI.Xaml.Gauges;
 using TestMove;
 using TestMove.Services;
 
-
-
-
 namespace TestMove
 {
     public partial class MainWindow : Window
     {
         private ConfigureUIElements uiConfigurer;
         private InitialiseVisualisations initialiseVisualisations;
+        private UIContentStrings uiContentStrings;
         private RoundResultsRepo roundResultsRepo;
+        private HPRoundResultsRepo roundHPResultsRepo;
+        private NEventsRepo negativeEventsRoundResults;
+        private PEventsRepo positiveEventsRoundResults;
 
         public MainWindow()
         {
+          
             InitializeComponent();
 
             // hide/show grids on start-up
             uiConfigurer = new ConfigureUIElements(this);
-            uiConfigurer.ConfigureUIOnClick(OTGrid, TimeAnalysisHighlight);
+            uiConfigurer.ConfigureUIOnClick(OTGrid, TimeAnalysisHighlight, "Time");
 
+            uiContentStrings = new UIContentStrings();           
             initialiseVisualisations = new InitialiseVisualisations();
-            // Create RoundResultsRepo instance (assuming ModelContext is available for its initialization)
-            roundResultsRepo = new RoundResultsRepo(new ModelContext());
 
-            // create InitialiseVisualisations instance
-           
+            // initialise all repo instances using Model Context
+            roundResultsRepo = new RoundResultsRepo(new ModelContext());
+            roundHPResultsRepo = new HPRoundResultsRepo(new ModelContext());
+            negativeEventsRoundResults = new NEventsRepo(new ModelContext());
+            positiveEventsRoundResults = new PEventsRepo(new ModelContext());
 
             // set dependencies
-
             initialiseVisualisations.SetRoundResultsRepo(roundResultsRepo);
+            initialiseVisualisations.SetHPRoundResultsRepo(roundHPResultsRepo);
+            initialiseVisualisations.SetNEventsRepo(negativeEventsRoundResults);
+            initialiseVisualisations.SetPEventsRepo(positiveEventsRoundResults);
 
-            // now that all dependencies are set, initialize visualisations
+            // now that all dependencies are set, initialize visualisations, threading through MainWindow
+            uiContentStrings.SetMainWindow(this);
             initialiseVisualisations.SetMainWindow(this);
             initialiseVisualisations.InitialiseAllVisualisations();
-        }
+            uiContentStrings.SetAllInformationTileText();
+;        }
 
         // NAVIGATION BUTTONS
         private void Button_TimeAnalysis(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.ConfigureUIOnClick(OTGrid, TimeAnalysisHighlight);
-            uiConfigurer.UpdateTitleOnClick(TitleLabel, "Time");
+            uiConfigurer.ConfigureUIOnClick(OTGrid, TimeAnalysisHighlight, "Time");
         }
 
         private void Button_PressureAnalysis(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.ConfigureUIOnClick(PressureGrid, PressureAnalysisHighlight);
-            uiConfigurer.UpdateTitleOnClick(TitleLabel, "Pressure");
+            uiConfigurer.ConfigureUIOnClick(PressureGrid, PressureAnalysisHighlight, "Pressure");
         }
 
         private void Button_EventsAnalysis(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.ConfigureUIOnClick(EventsGrid, EventsAnalysisHighlight);
-            uiConfigurer.UpdateTitleOnClick(TitleLabel, "Events");
+            uiConfigurer.ConfigureUIOnClick(EventsGrid, EventsAnalysisHighlight, "Events");
         }
 
         // TIME GRID INFO & CLOSE BUTTONS
         private void Button_WinrateInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(WinrateInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(WinrateInfoGrid, true);
         }
 
         private void Button_HeadshotInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HeadshotInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(HeadshotInfoGrid, true);
         }
 
         private void Button_AbilityInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(AbilityInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(AbilityInfoGrid, true);
         }
 
         private void Button_KASTInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(KASTInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(KASTInfoGrid, true);
         }
 
         private void Button_CloseWinrateInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(WinrateInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(WinrateInfoGrid, false);
         }
 
         private void Button_CloseHeadshotInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HeadshotInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(HeadshotInfoGrid, false);
         }
 
         private void Button_CloseAbilityInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(AbilityInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(AbilityInfoGrid, false);
         }
 
         private void Button_CloseKASTInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(KASTInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(KASTInfoGrid, false);
         }
 
         private void Button_ClosePMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(PMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(PMultiplierInfoGrid, false);
         }
 
         private void Button_CloseIMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(IMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(IMultiplierInfoGrid, false);
         }
 
         private void Button_IMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(IMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(IMultiplierInfoGrid, true);
         }
 
         private void Button_PMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(PMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(PMultiplierInfoGrid, true);
         }
 
         private void Button_HPIMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPIMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(HPIMultiplierInfoGrid, true);
         }
 
         // PRESSURE GRID INFO & CLOSE BUTTONS
 
         private void Button_HPPMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPPMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(HPPMultiplierInfoGrid, true);
         }
 
         private void Button_CloseHPPMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPPMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(HPPMultiplierInfoGrid, false);
         }
 
         private void Button_CloseHPIMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPIMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(HPIMultiplierInfoGrid, false);
         }
 
         private void Button_CloseHPIndexInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPIndexInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(HPIndexInfoGrid, false);
         }
 
         private void Button_HPIndexInfo1(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(HPIndexInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(HPIndexInfoGrid, true);
         }
 
         // EVENTS GRID INFO & CLOSE BUTTONS
 
         private void Button_EIMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EIMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(EIMultiplierInfoGrid, true);
         }
 
         private void Button_EPMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EPMultiplierInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(EPMultiplierInfoGrid, true);
         }
 
         private void Button_CloseEPMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EPMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(EPMultiplierInfoGrid, false);
         }
 
         private void Button_CloseEIMultiplierInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EIMultiplierInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(EIMultiplierInfoGrid, false);
         }
 
         private void Button_NegativeEventInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EventsTrendsInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(EventsTrendsInfoGrid, true);
         }
 
         private void Button_PositiveEventInfo(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EventsTrendsInfoGrid, true);
+            uiConfigurer.ShowInfoOnClick(EventsTrendsInfoGrid, true);
         }
 
         private void Button_CloseEventsTrendsInfoGrid(object sender, RoutedEventArgs e)
         {
-            uiConfigurer.OTInfoOnClick(EventsTrendsInfoGrid, false);
+            uiConfigurer.ShowInfoOnClick(EventsTrendsInfoGrid, false);
         }
     }
 }

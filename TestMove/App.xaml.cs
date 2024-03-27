@@ -7,11 +7,11 @@ namespace TestMove
 {
     public partial class App : Application
     {
-        // logic to populate the database on start-up and then clear the database on close, purely for development purposes. 
+        // logic to populate the database on start-up and then clear the database on close, for development & testing purposes. 
 
         public App()
         {
-            //register Syncfusion free community license
+            //register Syncfusion free registered community license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF1cVWhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEFjWn9dcXVQRWBfUkd0WA==");
         }
 
@@ -24,8 +24,8 @@ namespace TestMove
 
             // seed the database asynchronously on opening
             Task.Run(() => databasePopulation.SeedDatabaseAsync()).Wait();
-
         }
+
 
         protected override void OnExit(ExitEventArgs e)
         {

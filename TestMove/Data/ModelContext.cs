@@ -18,10 +18,12 @@ namespace TestMove
         public DbSet<NegativeEventsRoundResults> NegativeEventsRoundResults { get; set; }
         public DbSet<PositiveEventsRoundResults> PositiveEventsRoundResults { get; set; }
 
+        public string localDatabasePath = "Data Source=C:\\Users\\aloose moose\\source\\repos\\TestMove\\TestMove\\RoundResults_Database.db";
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // specifying a local folder to store the database
-            optionsBuilder.UseSqlite(@"Data Source=C:\Users\aloose moose\source\repos\TestMove\TestMove\RoundResults_Database.db");
+            // set to use SQLite and specify a local folder to store the database
+            optionsBuilder.UseSqlite(@localDatabasePath);
         }
     }
 }

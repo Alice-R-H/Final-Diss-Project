@@ -12,10 +12,11 @@ namespace TestMove
     public class PlotConfiguration
     {
         // methods to configure plots in the UI 
+        public double[] defaultXAxisIndex = { 1, 2, 3, 4, 5 };
 
-        public void ApplyConfiguration(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataX, double[] dataY, string axesLabel, string eventsFlag = null)
-        {
-           
+        public void ApplyConfiguration(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataY, string axesLabel, string eventsFlag = null)
+        {       
+            
             // add events graphic if not OT dash
             if (eventsFlag != null)
             {
@@ -25,11 +26,11 @@ namespace TestMove
             // add gradient effect if not events dash
             if (eventsFlag == null)
             {
-                CreateGradient(defaultPlot, dataX, dataY);
+                CreateCustomGraphic(defaultPlot, dataY);
             }
 
             // initialise plot
-            InitialisePlot(defaultPlot, dataX, dataY);
+            InitialisePlot(defaultPlot, dataY);
 
             // remove user interaction
             LimitInteraction(defaultPlot);
@@ -48,9 +49,9 @@ namespace TestMove
         }
 
         // initialise plot 
-        public void InitialisePlot(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataX, double[] dataY)
+        public void InitialisePlot(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataY)
         {
-            var myScatter = defaultPlot.Plot.Add.Scatter(dataX, dataY);
+            var myScatter = defaultPlot.Plot.Add.Scatter(defaultXAxisIndex, dataY);
 
             // customise
             myScatter.Color = ScottPlot.Color.FromHex("#7E334C");
@@ -71,22 +72,22 @@ namespace TestMove
         }
 
         // add gradient effect
-        public void CreateGradient(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataX, double[] dataY)
+        public void CreateCustomGraphic(ScottPlot.WPF.WpfPlot defaultPlot, double[] dataY)
         {
             double minY = dataY.Min();
 
-            int totalPoints = dataX.Length + 2;
+            int totalPoints = defaultXAxisIndex.Length + 2;
 
             Coordinates[] polygonPoints = new Coordinates[totalPoints];
 
-            polygonPoints[0] = new Coordinates(dataX[0], minY);
+            polygonPoints[0] = new Coordinates(defaultXAxisIndex[0], minY);
 
-            for (int i = 0; i < dataX.Length; i++)
+            for (int i = 0; i < defaultXAxisIndex.Length; i++)
             {
-                polygonPoints[i + 1] = new Coordinates(dataX[i], dataY[i]);
+                polygonPoints[i + 1] = new Coordinates(defaultXAxisIndex[i], dataY[i]);
             }
 
-            polygonPoints[totalPoints - 1] = new Coordinates(dataX[dataX.Length - 1], minY);
+            polygonPoints[totalPoints - 1] = new Coordinates(defaultXAxisIndex[defaultXAxisIndex.Length - 1], minY);
 
             var poly = defaultPlot.Plot.Add.Polygon(polygonPoints);
             poly.FillStyle = new FillStyle
@@ -135,7 +136,7 @@ namespace TestMove
                 // create a manual tick generator and add ticks
                 ScottPlot.TickGenerators.NumericManual ticks = new();
 
-                  // add major ticks with their labels
+                // add major ticks with their labels
                 ticks.AddMajor(0, "0");
                 ticks.AddMajor(0.25, "0.25");
                 ticks.AddMajor(0.5, "0.5");
@@ -153,7 +154,7 @@ namespace TestMove
 
             if (eventsFlag != null)
             {
-                AddEventsCustomXAxis(defaultPlot, eventsFlag);
+                AddEventsCustomXAxis(defaultPlot);
             }
         }
 
@@ -226,7 +227,7 @@ namespace TestMove
             }                    
         }
 
-        public void AddEventsCustomXAxis(ScottPlot.WPF.WpfPlot defaultPlot, string eventsFlag)
+        public void AddEventsCustomXAxis(ScottPlot.WPF.WpfPlot defaultPlot)
         {
             // set custom ticks for unique x axis
             ScottPlot.TickGenerators.NumericManual ticks = new();
@@ -246,4 +247,5 @@ namespace TestMove
         }
 
     }
+
 }

@@ -345,7 +345,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel x:Name="NavigationStack" HorizontalAlignment="Left" Height="766" VerticalAlignment="Top" Width="290" Margin="10,10,0,0" Grid.RowSpan="2">
+        <StackPanel x:Name="NavigationStack" HorizontalAlignment="Left" Height="766" VerticalAlignment="Top" Width="290" Margin="10,10,0,0" Grid.RowSpan="2" d:IsHidden="True">
 
             <Grid x:Name="AppNameGrid" Height="45" Width="256">
                 <Grid.ColumnDefinitions>
@@ -386,7 +386,7 @@
                 </Button>
             </Grid>
         </StackPanel>
-        <Grid x:Name="TitleGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="53" Margin="315,10,0,0" VerticalAlignment="Top" Width="1162">
+        <Grid x:Name="TitleGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="53" Margin="315,10,0,0" VerticalAlignment="Top" Width="1162" d:IsHidden="True">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF1C1B2C" Offset="1"/>
@@ -395,7 +395,7 @@
             </Grid.Background>
             <TextBlock x:Name="TitleLabel" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="40" Foreground="White" Width="1142" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Language="en-gb" Text="I M P A C T  O F  T I M E"/></TextBlock>
         </Grid>
-        <Grid x:Name="TrendsLabelGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="37" Margin="315,68,0,0" VerticalAlignment="Top" Width="868">
+        <Grid x:Name="TrendsLabelGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="37" Margin="315,68,0,0" VerticalAlignment="Top" Width="868" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0*"/>
                 <ColumnDefinition Width="85*"/>
@@ -404,11 +404,11 @@
             <Rectangle x:Name="TrendsLabelRect" Grid.ColumnSpan="3" Fill="#FF13121C"/>
             <TextBlock x:Name="TrendsLabel" TextWrapping="Wrap" FontSize="26" FontFamily="Segoe UI Semibold" Foreground="White" Margin="26,0,0,0" Grid.Column="2"><Run Language="en-gb" Text="T R E N D S"/></TextBlock>
         </Grid>
-        <Grid x:Name="SummaryLabelGrid" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="848,68,0,0" VerticalAlignment="Top" Width="277">
+        <Grid x:Name="SummaryLabelGrid" Grid.Column="1" HorizontalAlignment="Left" Height="37" Margin="848,68,0,0" VerticalAlignment="Top" Width="277" d:IsHidden="True">
             <Rectangle x:Name="SummaryLabelRect" Height="37" RadiusX="0" RadiusY="0" Fill="#FF15141F"/>
             <TextBlock x:Name="SummaryLabel" TextWrapping="Wrap" FontSize="26" FontFamily="Segoe UI Semibold" Foreground="White" Margin="52,0,0,0"><Run Language="en-gb" Text="S U M M A R Y"/></TextBlock>
         </Grid>
-        <Grid x:Name="PressureGrid" HorizontalAlignment="Left" Height="636" VerticalAlignment="Top" Width="1162" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="315,110,0,0">
+        <Grid x:Name="PressureGrid" HorizontalAlignment="Left" Height="636" VerticalAlignment="Top" Width="1162" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="315,110,0,0" d:IsHidden="True">
             <Rectangle x:Name="HPRoundWinRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="30,17,0,0"/>
             <Rectangle x:Name="HPDeathsRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="448,332,0,0"/>
             <Rectangle x:Name="HPHeadshotRect" HorizontalAlignment="Left" Height="287" VerticalAlignment="Top" Width="384" Fill="#FF15141F" RadiusX="10" RadiusY="10" Margin="30,332,0,0"/>
@@ -481,24 +481,24 @@
                     </LinearGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <Grid x:Name="HPRoundWinGrid" HorizontalAlignment="Left" Height="236" Margin="43,34,0,0" VerticalAlignment="Top" Width="358">
+            <Grid x:Name="HPRoundWinGrid" HorizontalAlignment="Left" Height="236" Margin="43,34,0,0" VerticalAlignment="Top" Width="358" d:IsHidden="True">
                 <gauge:SfCircularGauge x:Name="WinrateGauge" d:IsHidden="True" />
             </Grid>
-            <Grid x:Name="HPHeadshotGrid" HorizontalAlignment="Left" Height="230" Margin="43,348,0,0" VerticalAlignment="Top" Width="358">
+            <Grid x:Name="HPHeadshotGrid" HorizontalAlignment="Left" Height="230" Margin="43,348,0,0" VerticalAlignment="Top" Width="358" d:IsHidden="True">
                 <gauge:SfCircularGauge x:Name="HeadshotGauge" d:IsHidden="True" />
             </Grid>
-            <Grid x:Name="HPKASTGrid" HorizontalAlignment="Left" Height="236" Margin="463,34,0,0" VerticalAlignment="Top" Width="356">
+            <Grid x:Name="HPKASTGrid" HorizontalAlignment="Left" Height="236" Margin="463,34,0,0" VerticalAlignment="Top" Width="356" d:IsHidden="True">
                 <gauge:SfCircularGauge x:Name="KASTGauge" d:IsHidden="True" />
             </Grid>
-            <Grid x:Name="HPDeathsGrid" HorizontalAlignment="Left" Height="235" Margin="463,348,0,0" VerticalAlignment="Top" Width="356">
+            <Grid x:Name="HPDeathsGrid" HorizontalAlignment="Left" Height="235" Margin="463,348,0,0" VerticalAlignment="Top" Width="356" d:IsHidden="True">
                 <gauge:SfCircularGauge x:Name="DeathsGauge" d:IsHidden="True" />
             </Grid>
             <Grid x:Name="HPSummaryGrid" HorizontalAlignment="Left" Height="636" Margin="885,0,0,0" VerticalAlignment="Center" Width="277">
-                <TextBlock x:Name="HPPerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
-                <TextBlock x:Name="HPImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
-                <TextBlock x:Name="HPPMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
-                <TextBlock x:Name="HPIMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
-                <Button x:Name="HPIMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIMultiplierInfo">
+                <TextBlock x:Name="HPPerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24" d:IsHidden="True"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <TextBlock x:Name="HPImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White" d:IsHidden="True"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
+                <TextBlock x:Name="HPPMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R" d:IsHidden="True"/>
+                <TextBlock x:Name="HPIMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R" d:IsHidden="True"/>
+                <Button x:Name="HPIMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPIMultiplierInfo" d:IsHidden="True">
                     <Button.Background>
                         <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
                     </Button.Background>
@@ -515,7 +515,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <Ellipse x:Name="HPPMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
-                        <TextBlock x:Name="HPPerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                        <TextBlock x:Name="HPPerformanceMultiplierValue" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                     </Grid>
                 </Border>
                 <Border x:Name="HPIMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170">
@@ -530,7 +530,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <Ellipse x:Name="HPIMultiRect" HorizontalAlignment="Center" Height="130" VerticalAlignment="Center" Width="130" Fill="#FF16121C"/>
-                        <TextBlock x:Name="HPImpactMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                        <TextBlock x:Name="HPImpactMultiplierValue" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,42,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                     </Grid>
                 </Border>
                 <Button x:Name="HPPMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,58,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HPPMultiplierInfo">
@@ -579,13 +579,13 @@
                 <Button x:Name="CloseHPIndexInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="710,563,0,0" VerticalAlignment="Top" Click="Button_CloseHPIndexInfo"/>
             </Grid>
         </Grid>
-        <Grid x:Name="OTGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162" d:IsHidden="True">
+        <Grid x:Name="OTGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="636" Margin="315,110,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="1162">
             <Rectangle x:Name="KASTOTRect" HorizontalAlignment="Left" Height="278" Margin="446,336,0,0" VerticalAlignment="Top" Width="396" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
             <Rectangle x:Name="AbilityUsageOTRect" HorizontalAlignment="Left" Height="277" Margin="23,336,0,0" VerticalAlignment="Top" Width="394" Fill="#FF15141F" RadiusX="10" RadiusY="10"/>
             <Rectangle x:Name="WinrateOTRect" HorizontalAlignment="Left" Height="278" Margin="23,25,0,0" VerticalAlignment="Top" Width="394" RadiusX="10" RadiusY="10" Fill="#FF15141F"/>
             <Rectangle x:Name="HeadshotOTRect" HorizontalAlignment="Left" Height="278" Margin="446,25,0,0" VerticalAlignment="Top" Width="396" Fill="#FF15141E" RadiusX="10" RadiusY="10"/>
             <Grid
-                Width="405" VerticalAlignment="Top" x:Name="WinrateOTGrid" Margin="23,25,0,0" Height="264" HorizontalAlignment="Left">
+                Width="405" VerticalAlignment="Top" x:Name="WinrateOTGrid" Margin="23,25,0,0" Height="264" HorizontalAlignment="Left" d:IsHidden="True">
                 <ScottPlot:WpfPlot x:Name="WinrateOT" Margin="0,0,0,10" />
                 <TextBlock x:Name="WinrateTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="101,10,101,227"><Run Language="en-gb" Text="W I N R A T E  O V E R  T I M E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                 <Button x:Name="WinrateOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_WinrateInfo">
@@ -600,7 +600,7 @@
                 </Grid>
             </Grid>
             <Grid
-                Width="405" VerticalAlignment="Top" x:Name="HeadShotOTGrid" Margin="446,25,0,0" Height="264" HorizontalAlignment="Left">
+                Width="405" VerticalAlignment="Top" x:Name="HeadShotOTGrid" Margin="446,25,0,0" Height="264" HorizontalAlignment="Left" d:IsHidden="True">
                 <ScottPlot:WpfPlot x:Name="HeadShotOT" Margin="0,0,0,10" />
                 <TextBlock x:Name="HeadshotTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="94,10,94,227" Text="A C C U R A C Y  O V E R  T I M E&#xA;"/>
                 <Button x:Name="HeadshotOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_HeadshotInfo">
@@ -615,7 +615,7 @@
                 </Grid>
             </Grid>
             <Grid
-                Width="405" VerticalAlignment="Top" x:Name="AbilityUsageOTGrid" Margin="23,336,0,0" Height="264" HorizontalAlignment="Left">
+                Width="405" VerticalAlignment="Top" x:Name="AbilityUsageOTGrid" Margin="23,336,0,0" Height="264" HorizontalAlignment="Left" d:IsHidden="True">
                 <ScottPlot:WpfPlot x:Name="AbilityUsageOT" Margin="0,0,0,10" />
                 <TextBlock x:Name="AbilityUsageTitle" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="White" Margin="72,10,72,227" Text="A B I L I T Y  U S A G E  O V E R  T I M E"/>
                 <Button x:Name="AbilityOTInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="361,10,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_AbilityInfo">
@@ -645,16 +645,16 @@
                 </Grid>
             </Grid>
             <Grid x:Name="OTSummaryGrid" HorizontalAlignment="Left" Height="636" Margin="885,0,0,0" VerticalAlignment="Center" Width="277">
-                <TextBlock x:Name="PerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
-                <TextBlock x:Name="ImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
-                <TextBlock x:Name="PMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
-                <TextBlock x:Name="IMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R"/>
-                <Button x:Name="IMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_IMultiplierInfo">
+                <TextBlock x:Name="PerformanceText" HorizontalAlignment="Center" Height="39" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="24" d:IsHidden="True"><Run Language="en-gb" Text="P E R F O R M A N C E"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                <TextBlock x:Name="ImpactText" HorizontalAlignment="Center" Height="46" Margin="0,538,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontSize="24" FontFamily="Segoe UI Semibold" Foreground="White" d:IsHidden="True"><Run Language="en-gb" Text="I M P A C T"/></TextBlock>
+                <TextBlock x:Name="PMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R" d:IsHidden="True"/>
+                <TextBlock x:Name="IMultiplierText" HorizontalAlignment="Center" Height="32" Margin="0,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="White" Text="M U L T I P L I E R" d:IsHidden="True"/>
+                <Button x:Name="IMultiplierInfo" Content="Button" HorizontalAlignment="Left" Height="20" Margin="236,360,0,0" VerticalAlignment="Top" Width="20" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Button_IMultiplierInfo" d:IsHidden="True">
                     <Button.Background>
                         <ImageBrush ImageSource="/info-icon.png" Opacity="1"/>
                     </Button.Background>
                 </Button>
-                <Border x:Name="PMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top">
+                <Border x:Name="PMultiBorder" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" d:IsHidden="True">
                     <Grid x:Name="PMultiGrid">
                         <Ellipse x:Name="PMultiOuterRect" HorizontalAlignment="Center" Height="170" VerticalAlignment="Top" Width="170" Fill="#FF12131D"/>
                         <Ellipse x:Name="PMultiInnerRect" HorizontalAlignment="Center" Height="150" Margin="0,10,0,0" VerticalAlignment="Top" Width="150">
@@ -694,10 +694,10 @@
                     <Button x:Name="ClosePMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="156,239,0,0" VerticalAlignment="Top" Click="Button_ClosePMultiplierInfo"/>
                     <TextBlock x:Name="PMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
                 </Grid>
-                <Grid x:Name="IMultiplierInfoGrid" HorizontalAlignment="Center" Height="279" Margin="0,336,0,0" VerticalAlignment="Top" Width="246" d:IsHidden="True">
+                <Grid x:Name="IMultiplierInfoGrid" HorizontalAlignment="Center" Height="279" Margin="0,336,0,0" VerticalAlignment="Top" Width="246">
                     <Rectangle x:Name="IMultiplierInfoRect" HorizontalAlignment="Center" Height="279" VerticalAlignment="Center" Width="244" RadiusX="12" RadiusY="12" Fill="#FF15141E"/>
                     <Button x:Name="CloseIMultiplierInfo" Content="C L O S E" Height="29" Width="82" BorderBrush="{x:Null}" Foreground="#FF15121C" FontWeight="Bold" HorizontalAlignment="Left" Margin="154,240,0,0" VerticalAlignment="Top" Click="Button_CloseIMultiplierInfo"/>
-                    <TextBlock x:Name="IMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White"><Run Text="This is some misc text to describe this graph. If your win-rate increases overtime, maybe consider warming up for longer. If you win-rate decreases overtime, maybe consider taking longer breaks between games to ensure consistency."/><LineBreak/><Run/></TextBlock>
+                    <TextBlock x:Name="IMultiplierInfoText" HorizontalAlignment="Center" Height="224" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontSize="14" Foreground="White" Text=""/>
                 </Grid>
             </Grid>
         </Grid>
@@ -758,7 +758,7 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <Ellipse x:Name="EPMultiRect" HorizontalAlignment="Center" Height="127" VerticalAlignment="Center" Width="130" Fill="#FF12131D"/>
-                        <TextBlock x:Name="EPerformanceMultiplierRect" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
+                        <TextBlock x:Name="EPerformanceMultiplierText" Style="{DynamicResource TextBlockStyle2}" Height="80" TextWrapping="Wrap" Width="83" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="60" Margin="0,44,0,0" VerticalAlignment="Top"><Run Language="en-gb" Text="0.6"/><LineBreak/><Run Language="en-gb"/><LineBreak/><Run Language="en-gb"/></TextBlock>
                     </Grid>
                 </Border>
                 <Border x:Name="EIMultiBorder" HorizontalAlignment="Center" Height="170" Margin="0,360,0,0" VerticalAlignment="Top" Width="170">

@@ -10,8 +10,7 @@ namespace TestMove
 {
     internal class GameStatisticsCalculator
     {
-        RoundResultsRepo roundResultsRepo;
-
+        // generate KAST rounds list
         public List<int> GenerateKASTBooleanListRoundResults(List<int> Kills, List<int> Assists, List<int> Deaths, List<int> Trades)
         {        
             List<int> resultsAsBooleanList = new List<int>();
@@ -34,10 +33,10 @@ namespace TestMove
             return resultsAsBooleanList;
         }
 
-
-        public List<int> CalculateXGameResults_FromBooleanList(List<int> resultsAsBooleanList, int totalRounds = 24)
+        // calculate average 
+        public List<int> CalculateAveragePerGameResults_FromBooleanList(List<int> resultsAsBooleanList, int totalRounds = 24)
         {
-            List<int> resultsKASTPerGame = new List<int>();
+            List<int> resultsPerGame = new List<int>();
 
             // split the list into rounds per game, and then calculate the average KAST per game
             for (int i = 0; i < resultsAsBooleanList.Count; i += totalRounds)
@@ -46,14 +45,15 @@ namespace TestMove
                 List<int> resultsKASTGame = resultsAsBooleanList.GetRange(i, Math.Min(totalRounds, resultsAsBooleanList.Count - i));
 
                 // calculate the percentage KAST of the chunk
-                int percentageKASTPerGame = CalculatePercentageXPerGame_FromBooleanList(resultsKASTGame);
+                int percentageKASTThisGame = CalculatePercentageAcrossRounds_FromBooleanList(resultsKASTGame);
 
-                resultsKASTPerGame.Add(percentageKASTPerGame);
+                resultsPerGame.Add(percentageKASTThisGame);
             }
-            return resultsKASTPerGame;
+
+            return resultsPerGame;
         }
 
-        public int CalculatePercentageXPerGame_FromBooleanList(List<int> XRoundResults, int totalRounds = 24)
+        public int CalculatePercentageAcrossRounds_FromBooleanList(List<int> XRoundResults)
         {
             double percentageXPerGame;
             int roundsXTrue = 0;
@@ -69,13 +69,13 @@ namespace TestMove
             }
 
             // calculate percentage that X is true
-            percentageXPerGame = ((double)roundsXTrue / totalRounds) * 100;
+            percentageXPerGame = ((double)roundsXTrue / XRoundResults.Count) * 100;
             int percentageXPerGameRounded = (int)Math.Round(percentageXPerGame);
 
             return percentageXPerGameRounded;
         }
 
-        public List<int> CalculateAverageXPerGame(List<int> X)
+        public List<double> CalculateAveragePerGame(List<int> X)
         {
             // this method is called for any non-boolean list
             // using LINQ to split the data into "games", then find the average value per game
@@ -85,28 +85,30 @@ namespace TestMove
             var averages = X
                 .Select((value, index) => new { Index = index, Value = value })
                 .GroupBy(x => x.Index / roundsInAGame)
-                .Select(group => (int)Math.Round(group.Average(item => item.Value)))
+                .Select(group => Math.Round(group.Average(item => item.Value)))
                 .ToList();
 
             return averages;
         }
-
-        public List<double> CalculateAverageAbilitiesPerGame(List<int> AbilitiesList)
+        
+        public double CalculateAverageOfAllRounds(List<int> roundMetric)
         {
-            // this method is called for any non-boolean list
-            // using LINQ to split the data into "games", then find the average value per game
+            double averageMetric;
 
-            int roundsInAGame = 24;
+            double totalSumOfMetrics = 0;
 
-            var averages = AbilitiesList
-                .Select((value, index) => new { Index = index, Value = value })
-                .GroupBy(x => x.Index / roundsInAGame)
-                .Select(group => Math.Round(group.Average(item => item.Value), 1))
-                .ToList();
+            foreach (var metric in roundMetric)
+            {
+                totalSumOfMetrics += metric;
+            }
 
-            return averages;
+            averageMetric = totalSumOfMetrics / roundMetric.Count;
+            averageMetric = Math.Round(averageMetric, 2);
+
+            return averageMetric;
         }
 
+        // multiplier methods
         public double CalculateMultiplierFromXArray(double[] XArray)
         {
             double multiplier;
@@ -120,7 +122,7 @@ namespace TestMove
             }
 
             multiplier = totalSumOfMultipliers / (XArray.Length - 1);
-            multiplier = Math.Round(multiplier, 2);
+            multiplier = Math.Round(multiplier, 5);
 
             return multiplier;
         }
@@ -137,11 +139,9 @@ namespace TestMove
             }
 
             averageMultiplier = totalSumOfMultipliers / multipliers.Length;
-            averageMultiplier = Math.Round(averageMultiplier, 2);
+            averageMultiplier = Math.Round(averageMultiplier, 5);
 
             return averageMultiplier;
         }
-
-
     }
 }
